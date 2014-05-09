@@ -1,0 +1,45 @@
+gramática
+E -> 	  E + E		R1
+	| E * E		R2
+	| T		R3
+T ->	 (E)		R4
+	| id		R5
+
+I -   id + id
+II -  id * id
+III - 
+IV -  id*(id+id)
+V i   id+)id
+
+Pilha		Entrada		Ação
+		id * id		T(id)	//vazio não é regra então transfere o primeiro para pilha
+id		* id		R5	//id é a regra 5	
+T		* id		R3	//T é a rega 4
+E		* id		T(*)	//E não é regra então transfere multiplicação para pilha
+E *		id		T(id)	//E * não é regra então transfere id para pilha
+E * id				R5	//E * id encaixa na regra 5
+E * T				R3	//E * T encaixa na regra 3
+E * E				R2	//E * E encaixa na regra 2
+E					//não tem mais entrada e não encaixa em nenhuma regra
+palavra correta
+
+
+Pilha		Entrada		Ação
+		id*(id+id)	T(id)	//vazio não é regra então transfere o primeiro para pilha
+id		*(id+id)	R5
+T		*(id+id)	R3
+E		*(id+id)	T(*)
+E *		(id+id)		T(()
+E * (		id+id)		T(id)
+E * ( id	+id)		R5
+E * ( T		+id)		R3
+E * ( E		+id)		T(+)
+E * ( E +	id)		T(id)
+E * ( E + id	)		R5
+E * ( E + T	)		R3
+E * ( E + E	)		R1
+E * ( E		)		T())
+E * ( E )			R4
+E * T				R3
+E * E				R2
+E
